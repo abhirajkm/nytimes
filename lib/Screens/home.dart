@@ -3,6 +3,7 @@ import 'package:nytimes/Screens/detail-screen.dart';
 import 'package:nytimes/models/articles.dart';
 import 'package:provider/provider.dart';
 
+import '../components/custom-app-bar.dart';
 import '../providers/news.dart';
 import '../utils/apploader.dart';
 
@@ -13,11 +14,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final articleProvider =
         Provider.of<NewsProvider>(context, listen: false).fetchArticles();
+
     return Scaffold(
+
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(60), child: CustomAppBar()),
+          preferredSize: Size.fromHeight(60),
+          child: CustomAppBar()),
+
       body: RefreshIndicator(
         onRefresh: () => articleProvider,
+
         child: FutureBuilder(
             future: articleProvider,
             builder: (context, snapshot) {
@@ -25,11 +31,10 @@ class HomeScreen extends StatelessWidget {
                 return const AppLoader();
               } else {
                 if (snapshot.hasData) {
-                  List<Article> _articles = snapshot.data as List<Article>;
+                  List<Article> articles = snapshot.data as List<Article>;
                   return Scaffold(
-                      extendBody: true,
-                      body: ArticleList(
-                        articleList: _articles,
+                    body: ArticleList(
+                        articleList: articles,
                       ));
                 } else {
                   return const Center(
@@ -43,32 +48,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: const Icon(Icons.vertical_split_outlined),
-      title: Text(
-        "NY Times Most Popular",
-        style: Theme.of(context)
-            .textTheme
-            .headline6!
-            .copyWith(color: Colors.white),
-      ),
-      actions: [
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              size: 25,
-            )),
-        const Icon(Icons.more_vert)
-      ],
-    );
-  }
-}
 
 class ArticleList extends StatelessWidget {
   final List<Article> articleList;
@@ -177,7 +157,7 @@ class ArticleItem extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           )
         ],

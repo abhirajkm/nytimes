@@ -1,5 +1,3 @@
-
-
 import 'media_metadata.dart';
 
 class Media {

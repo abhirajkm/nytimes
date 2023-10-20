@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:nytimes/providers/news.dart';
 import 'package:provider/provider.dart';
