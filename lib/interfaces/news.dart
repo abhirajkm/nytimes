@@ -6,7 +6,7 @@ import '../utils/api/api_interface.dart';
 import '../utils/api/api_method.dart';
 
 class NewsInterface{
-  static Future<List<Article>> fetchArticles() async {
+   Future<List<Article>> fetchArticles() async {
     try {
       final response = await ApiInterface.send(
         apiMethod: ApiMethod.GET,
